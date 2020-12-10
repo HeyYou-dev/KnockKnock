@@ -12,7 +12,7 @@ var AddressBook = (function () {
   /* ----------add members here -----------*/
 
   var contact = {
-    name: ko.observable().extend({
+    Ticket_no: ko.observable().extend({
       minLength: 10,
       maxLength: 10,
       pattern: {
@@ -20,7 +20,7 @@ var AddressBook = (function () {
         params: "^[0-9]+$",
       },
     }),
-    phoneNumber: ko.observable().extend({
+    Quote_id: ko.observable().extend({
       minLength: 12,
       maxLength: 12,
       pattern: {
@@ -29,10 +29,14 @@ var AddressBook = (function () {
       },
     }),
     date: ko.observable(d + "/" + m + "/" + y),
+    Reason: ko.observable("BUG"),
+    Change: ko.observable().extend({
+      Required: true,
+    }),
   };
 
   contact.isFormValid = ko.computed(function () {
-    return this.name() && this.phoneNumber();
+    return this.Ticket_no() && this.Quote_id() && this.Reason() && this.Change();
   }, contact);
 
   contacts = ko.observableArray();
@@ -44,12 +48,18 @@ var AddressBook = (function () {
   /*----------helper fuction---------*/
 
   var addContact = function () {
-    console.log("Adding new contact with name: " + contact.name() + " and phonenumber: " + contact.phoneNumber());
+    console.log("Adding new contact with Ticket_no: " + contact.Ticket_no() + " and Quote_id: " + contact.Quote_id());
     console.log("addContactCalled");
-    console.log(contact.name().length);
+    console.log(contact.Ticket_no().length);
 
-    if (contact.name().length == 10 && contact.phoneNumber().length == 12) {
-      var paylaod = { name: contact.name(), phoneNumber: contact.phoneNumber(), date: contact.date() };
+    if (contact.Ticket_no().length == 10 && contact.Quote_id().length == 12 && contact.Reason().length != 0 && contact.Change().length != 0) {
+      var paylaod = {
+        Ticket_no: contact.Ticket_no(),
+        Quote_id: contact.Quote_id(),
+        date: contact.date(),
+        Reason: contact.Reason(),
+        Change: contact.Change(),
+      };
       contacts.push(paylaod);
       total(total() + 1);
       setLocalstorage(paylaod);
@@ -166,8 +176,10 @@ var AddressBook = (function () {
   };
 
   var clearContact = function () {
-    contact.name(null);
-    contact.phoneNumber(null);
+    contact.Ticket_no(null);
+    contact.Quote_id(null);
+    contact.Reason("BUG");
+    contact.Change(null);
 
     console.log("clearContact");
   };

@@ -35,13 +35,15 @@
                     <th>Ticket ID</th>
                     <th>Quote ID</th>
                     <th>Changed on</th>
+                    <th>Reason</th>
                   </tr>
                 </thead>
                 <tbody data-bind="foreach:AddressBook.contacts" id="tbody">
                   <tr id="tr">
-                    <td style="padding: 10px 15px" data-bind="text: name"></td>
-                    <td style="padding: 10px 15px" data-bind="text: phoneNumber"></td>
+                    <td style="padding: 10px 15px" data-bind="text: Ticket_no"></td>
+                    <td style="padding: 10px 15px" data-bind="text: Quote_id"></td>
                     <td style="padding: 10px 15px" data-bind="text:date"></td>
+                    <td style="padding: 10px 15px" data-bind="text:Reason"></td>
                   </tr>
                 </tbody>
               </table>
@@ -58,8 +60,8 @@
             <form class="ui form">
               <div class="field">
                 <label id="lbl">IM Ticket ID</label>
-                <input id="put" type="text" data-bind="value: AddressBook.contact.name, valueUpdate: 'keyup'" placeholder="First Name" />
-                <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.name"></span>
+                <input id="put" type="text" data-bind="value: AddressBook.contact.Ticket_no, valueUpdate: 'keyup'" placeholder="IM Ticket id.........?" />
+                <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.Ticket_no"></span>
               </div>
 
               <!-- <div data-bind="visible:visi"> -->
@@ -69,8 +71,8 @@
               <!-- </div> -->
               <div class="field">
                 <label id="lbl">Quote ID</label>
-                <input id="put" type="text" data-bind="value:AddressBook.contact.phoneNumber, valueUpdate: 'keyup'" placeholder="Phone Number" />
-                <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.phoneNumber"></span>
+                <input id="put" type="text" data-bind="value:AddressBook.contact.Quote_id, valueUpdate: 'keyup'" placeholder="CPQ Quote id.....? " />
+                <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.Quote_id"></span>
               </div>
 
               <!-- <div data-bind="visible:visi"> -->
@@ -78,8 +80,23 @@
               <!-- <span style="display: block; color: darkred">Please enter the Cpq Quote id</span> -->
               <!-- /ko -->
               <!-- </div> -->
+
               <div class="field">
-                <button style="margin: 20px, 0px, 20px, 0px" data-bind="enable: AddressBook.contact.isFormValid,click: AddressBook.addContact" class="ui blue basic button" type="submit">Submit</button>
+                <label id="lbl">Reason</label>
+                <select id="put" class="field" data-bind="value :AddressBook.contact.Reason">
+                  <option value="BUG">BUG</option>
+                  <option value="On Bussiness Approval">On Bussiness Approval</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label id="lbl">Change done</label>
+                <input id="put" type="text" data-bind="value:AddressBook.contact.Change, valueUpdate: 'keyup'" placeholder="What change was done....?" />
+                <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.Change"></span>
+              </div>
+
+              <div class="field">
+                <button style="margin: 20px, 0px, 20px, 0px" data-bind="enable: AddressBook.contact.isFormValid,click: AddressBook.addContact" class="ui inverted primary button" type="submit">Submit</button>
               </div>
             </form>
           </div>
