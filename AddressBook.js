@@ -136,8 +136,11 @@ var AddressBook = (function () {
 
   var clearTable = function () {
     console.log("table cleared");
-    localStorage.clear();
-
+    if (window.confirm("Are you sure want to delete all records permanently? click 'OK' to delete ")) {
+      localStorage.clear();
+    } else {
+      console.log("didn't run");
+    }
     window.location.reload();
   };
 
@@ -146,6 +149,23 @@ var AddressBook = (function () {
     contact.phoneNumber(null);
 
     console.log("clearContact");
+  };
+
+  /*--------------Create excel sheet function---------------------*/
+
+  var exportTableToExcel = function () {
+    console.log("run");
+    data = JSON.parse(localStorage.getItem("data"));
+    console.log(data);
+    /* make the worksheet */
+    var ws = XLSX.utils.json_to_sheet(data);
+
+    /* add to workbook */
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "People");
+
+    /* generate an XLSX file */
+    XLSX.writeFile(wb, "ProductionChanges.xlsx");
   };
 
   /*--------------Initialization of DOM[On every DOM Update]------------------------*/
@@ -169,5 +189,6 @@ var AddressBook = (function () {
     contacts: contacts,
     addContact: addContact,
     clearTable: clearTable,
+    exportTableToExcel: exportTableToExcel,
   };
 })();
