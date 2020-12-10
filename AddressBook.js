@@ -7,15 +7,35 @@ var AddressBook = (function () {
   m = n.getMonth() + 1;
   d = n.getDate();
 
+  /*-------knockout validation configuration--------*/
+  ko.validation.init({ insertMessages: false });
   /* ----------add members here -----------*/
 
   var contact = {
-    name: ko.observable(),
-    phoneNumber: ko.observable(),
+    name: ko.observable().extend({
+      minLength: 10,
+      maxLength: 10,
+      pattern: {
+        message: "Hey this doesnt match ticket id pattern",
+        params: "^[0-9]+$",
+      },
+    }),
+    phoneNumber: ko.observable().extend({
+      minLength: 12,
+      maxLength: 12,
+      pattern: {
+        message: "Hey this doesnt match quote id pattern",
+        params: "^[0-9]+$",
+      },
+    }),
     date: ko.observable(d + "/" + m + "/" + y),
   };
 
-  (visi = ko.observable(null)), (contacts = ko.observableArray());
+  contact.isFormValid = ko.computed(function () {
+    return this.name() && this.phoneNumber();
+  }, contact);
+
+  contacts = ko.observableArray();
 
   total = ko.observable(null);
 
@@ -26,18 +46,19 @@ var AddressBook = (function () {
   var addContact = function () {
     console.log("Adding new contact with name: " + contact.name() + " and phonenumber: " + contact.phoneNumber());
     console.log("addContactCalled");
+    console.log(contact.name().length);
 
-    if (contact.name() && contact.phoneNumber()) {
+    if (contact.name().length == 10 && contact.phoneNumber().length == 12) {
       var paylaod = { name: contact.name(), phoneNumber: contact.phoneNumber(), date: contact.date() };
       contacts.push(paylaod);
       total(total() + 1);
       setLocalstorage(paylaod);
       clearContact();
-      visi(false);
+      // visi(false);
     } else {
       console.log("error report");
 
-      visi(true);
+      // visi(true);
     }
   };
 
@@ -175,7 +196,7 @@ var AddressBook = (function () {
 
     console.log("first console");
     getCurrentState();
-    visi(false);
+    // visi(false);
     ko.applyBindings(AddressBook);
   };
 

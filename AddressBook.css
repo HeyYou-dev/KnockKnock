@@ -1,0 +1,22 @@
+#put {
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(224, 137, 5);
+  border-radius: 4px;
+}
+
+#lbl {
+  color: rgb(230, 233, 235);
+}
+
+#loginbox {
+  padding: 52px;
+  background-color: rgb(75, 77, 75);
+  border-radius: 5px;
+}
+
+#footer {
+  padding: 10px;
+  margin-top: 20px;
+  background-color: currentcolor;
+}
