@@ -2,11 +2,6 @@
 var AddressBook = (function () {
   /*--------------------*/
 
-  n = new Date();
-  y = n.getFullYear();
-  m = n.getMonth() + 1;
-  d = n.getDate();
-
   /*-------knockout validation configuration--------*/
   ko.validation.init({ insertMessages: false });
   /* ----------add members here -----------*/
@@ -28,7 +23,7 @@ var AddressBook = (function () {
         params: "^[0-9]+$",
       },
     }),
-    date: ko.observable(d + "/" + m + "/" + y),
+    date: ko.observable(new Date().toLocaleString()),
     Reason: ko.observable("BUG"),
     Change: ko.observable().extend({
       Required: true,
@@ -60,7 +55,7 @@ var AddressBook = (function () {
         Reason: contact.Reason(),
         Change: contact.Change(),
       };
-      contacts.push(paylaod);
+      contacts.unshift(paylaod);
       total(total() + 1);
       setLocalstorage(paylaod);
       clearContact();
@@ -82,7 +77,7 @@ var AddressBook = (function () {
       data = JSON.parse(localStorage.getItem("data"));
     }
 
-    data.push(payload);
+    data.unshift(payload);
 
     localStorage.setItem("data", JSON.stringify(data));
   };
@@ -115,7 +110,7 @@ var AddressBook = (function () {
     console.log("trimdata", trimdata);
 
     for (let i = 0; i < trimdata.queryset.length; i++) {
-      contacts.push(trimdata.queryset[i]);
+      contacts.unshift(trimdata.queryset[i]);
     }
 
     pageButton(trimdata.pages);
@@ -144,7 +139,7 @@ var AddressBook = (function () {
       var trimdata = pagination(state.queryset, $(this).val(), state.rows);
       console.log("jqury", trimdata.queryset);
       for (let i = 0; i < trimdata.queryset.length; i++) {
-        contacts.push(trimdata.queryset[i]);
+        contacts.unshift(trimdata.queryset[i]);
       }
     });
   };
@@ -197,8 +192,9 @@ var AddressBook = (function () {
     var wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "People");
 
+    n = contact.date();
     /* generate an XLSX file */
-    XLSX.writeFile(wb, "ProductionChanges.xlsx");
+    XLSX.writeFile(wb, `${n}.xlsx`);
   };
 
   /*--------------Initialization of DOM[On every DOM Update]------------------------*/
@@ -207,6 +203,7 @@ var AddressBook = (function () {
     /*------------add code to initialize this module------------*/
 
     console.log("first console");
+    document.body.style.zoom = 0.9;
     getCurrentState();
     // visi(false);
     ko.applyBindings(AddressBook);

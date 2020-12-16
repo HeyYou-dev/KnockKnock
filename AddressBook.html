@@ -13,14 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js" integrity="sha512-NerWxp37F9TtBS1k1cr2TjyC9c8Qh6ghgqVBOYXaahgnBkVT6a8KVbO05Z8+LnIIom4CJSSQTZ3VbL396scK5w==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.4/knockout.validation.js"></script>
 
-    <title>Hello, world!</title>
+    <title>Mazukie</title>
   </head>
   <body style="background-color: #9bc2722e">
     <div class="ui container" style="margin-top: 40px">
       <div class="ui stackable grid">
         <div class="ten wide column">
           <div>
-            <div class="ui segment" style="background-color: black; border-radius: 10px">
+            <div class="ui segment" style="border-radius: 10px; background-color: #383f3d">
               <div class="ui search">
                 <div class="ui icon input">
                   <input id="search" class="prompt" type="text" placeholder="Enter Quote id..." />
@@ -105,7 +105,7 @@
 
       <div class="six wide column">
         <div class="ui segment" id="footer">
-          <button class="ui blue basic button" style="display: inline-block; font-size: 15px; padding-top: 10px; margin-right: 15px">Total Records <span style="padding-top: 15px; font-weight: lighter; font-size: 15px" data-bind="text:total"></span></button>
+          <a class="ui secondary button" style="display: inline-block; font-size: 15px; padding-top: 10px; margin-right: 15px">Total Records <span style="padding-top: 15px; font-weight: lighter; font-size: 15px" data-bind="text:total"></span></a>
           <button class="ui green basic button" id="Ebutton" type="submit" data-bind="click:AddressBook.exportTableToExcel">Export Excel</button>
           <button style="float: right" data-tooltip="This will delete all records" data-position="top center" data-bind="click: AddressBook.clearTable" class="ui red basic button" type="submit">Delete</button>
         </div>
