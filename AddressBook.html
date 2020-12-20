@@ -91,6 +91,18 @@
               </div>
 
               <div class="field">
+                <div class="ui checkbox">
+                  <input type="checkbox" data-bind="checked:AddressBook.contact.ManualDate" />
+                  <label id="lbl">Manual Date</label>
+                </div>
+              </div>
+
+              <div class="field" data-bind="visible:AddressBook.contact.ManualDate() ==true">
+                <label id="lbl">Date</label>
+                <input id="put" type="text" data-bind="value:AddressBook.contact.date" placeholder="Please enter change date..?" />
+              </div>
+
+              <div class="field">
                 <label id="lbl">Change done</label>
                 <input id="put" type="text" data-bind="value:AddressBook.contact.Change, valueUpdate: 'keyup'" placeholder="What change was done....?" />
                 <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.Change"></span>

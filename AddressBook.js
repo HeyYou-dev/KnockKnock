@@ -23,6 +23,7 @@ var AddressBook = (function () {
         params: "^[0-9]+$",
       },
     }),
+    ManualDate: ko.observable(false),
     date: ko.observable(new Date().toLocaleString()),
     Reason: ko.observable("BUG"),
     Change: ko.observable().extend({
