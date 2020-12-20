@@ -1,7 +1,7 @@
 #put {
   border-style: solid;
   border-width: 2px;
-  border-color: rgb(224, 137, 5);
+  border-color: rgb(216, 71, 71);
   border-radius: 4px;
 }
 
@@ -18,5 +18,11 @@
 #footer {
   padding: 10px;
   margin-top: 20px;
-    background-color: #333135;
+  background-color: #333135;
+}
+#scroll {
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  display: block;
 }

@@ -23,12 +23,13 @@
             <div class="ui segment" style="border-radius: 10px; background-color: #383f3d">
               <div class="ui search">
                 <div class="ui icon input">
-                  <input id="search" class="prompt" type="text" placeholder="Enter Quote id..." />
-                  <button style="margin-left: 50px; border-radius: 115px" data-bind="#" class="ui blue basic button" type="submit">Search</button>
+                  <input id="search" class="prompt" type="text" placeholder="Enter Quote id..." data-bind="textInput:AddressBook.search.inputBar; valueUpdate: 'keyup'" />
+                  <button style="margin-left: 50px; border-radius: 115px" data-bind="enable:AddressBook.search.isValid(),click:AddressBook.searchPoint;" class="ui inverted orange basic button" type="submit">Search</button>
                 </div>
               </div>
+              <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:AddressBook.search.inputBar"></span>
             </div>
-            <div class="ui segment" style="box-shadow: 20px 20px 50px 10px #e3e3e1 inset">
+            <div class="ui segment" style="box-shadow: 20px 20px 50px 10px #e3e3e1 inset" id="scroll">
               <table class="ui padded orange celled table" id="table">
                 <thead>
                   <tr>

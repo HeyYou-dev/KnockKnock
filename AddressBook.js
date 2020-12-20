@@ -38,9 +38,51 @@ var AddressBook = (function () {
 
   total = ko.observable(null);
 
+  /*--------------Search bar operation----------------*/
+
+  var search = {
+    inputBar: ko.observable("").extend({
+      minLength: 12,
+      maxLength: 12,
+      pattern: {
+        message: "Hey this doesnt match quote id pattern",
+        params: "^[0-9]+$",
+      },
+    }),
+  };
+
+  search.isValid = function () {
+    let a = search.inputBar();
+    console.log(a.length);
+
+    return a.length == 12;
+  };
+
   /*-------------jquery---------------------*/
 
+  $("#search").keyup(function () {
+    if (!this.value) {
+      console.log("jquery");
+      contacts.removeAll();
+      getCurrentState();
+    }
+  });
+
   /*----------helper fuction---------*/
+
+  var searchPoint = function () {
+    let a = search.inputBar();
+
+    if (a.length == 12) {
+      data = getLocal();
+      console.log(data);
+      let result = data.filter((row) => row.Quote_id == a);
+      contacts.removeAll();
+      contacts.unshift(result[0]);
+    } else {
+      getCurrentState();
+    }
+  };
 
   var addContact = function () {
     console.log("Adding new contact with Ticket_no: " + contact.Ticket_no() + " and Quote_id: " + contact.Quote_id());
@@ -105,60 +147,60 @@ var AddressBook = (function () {
 
     state.queryset = getLocal();
 
-    var trimdata = pagination(state.queryset, state.page, state.rows);
+    // var trimdata = pagination(state.queryset, state.page, state.rows);
 
-    console.log("trimdata", trimdata);
+    // console.log("trimdata", trimdata);
 
-    for (let i = 0; i < trimdata.queryset.length; i++) {
-      contacts.unshift(trimdata.queryset[i]);
+    for (let i = 0; i < state.queryset.length; i++) {
+      contacts.unshift(state.queryset[i]);
     }
 
-    pageButton(trimdata.pages);
+    // pageButton(trimdata.pages);
     // total(data.length);
   };
 
-  var pageButton = function (pages) {
-    console.log("pages", pages);
-    var tpagination = document.getElementById("tpagination");
+  //   var pageButton = function (pages) {
+  //     console.log("pages", pages);
+  //     var tpagination = document.getElementById("tpagination");
+  //
+  //     console.log(tpagination);
+  //
+  //     tpagination.innerHTML = "";
+  //
+  //     for (let page = 1; page <= pages; page++) {
+  //       tpagination.innerHTML += `<button value=${page} class="page ui blue basic button">${page}</button>`;
+  //     }
+  //
+  //     $(".page").on("click", function () {
+  //       console.log("onClick worked");
+  //       $("#tbody").empty();
+  //
+  //       // state.page = $(this).val();
+  //       console.log("state.page", state.page);
+  //
+  //       var trimdata = pagination(state.queryset, $(this).val(), state.rows);
+  //       console.log("jqury", trimdata.queryset);
+  //       for (let i = 0; i < trimdata.queryset.length; i++) {
+  //         contacts.unshift(trimdata.queryset[i]);
+  //       }
+  //     });
+  //   };
 
-    console.log(tpagination);
-
-    tpagination.innerHTML = "";
-
-    for (let page = 1; page <= pages; page++) {
-      tpagination.innerHTML += `<button value=${page} class="page ui blue basic button">${page}</button>`;
-    }
-
-    $(".page").on("click", function () {
-      console.log("onClick worked");
-      $("#tbody").empty();
-
-      // state.page = $(this).val();
-      console.log("state.page", state.page);
-
-      var trimdata = pagination(state.queryset, $(this).val(), state.rows);
-      console.log("jqury", trimdata.queryset);
-      for (let i = 0; i < trimdata.queryset.length; i++) {
-        contacts.unshift(trimdata.queryset[i]);
-      }
-    });
-  };
-
-  var pagination = function (queryset, page, rows) {
-    console.log("pagination");
-    var trimStart = (page - 1) * rows;
-    var trimEnd = trimStart + rows;
-
-    var trimData = queryset.slice(trimStart, trimEnd);
-
-    var pages = Math.ceil(queryset.length / rows);
-
-    return {
-      queryset: trimData,
-
-      pages: pages,
-    };
-  };
+  //   var pagination = function (queryset, page, rows) {
+  //     console.log("pagination");
+  //     var trimStart = (page - 1) * rows;
+  //     var trimEnd = trimStart + rows;
+  //
+  //     var trimData = queryset.slice(trimStart, trimEnd);
+  //
+  //     var pages = Math.ceil(queryset.length / rows);
+  //
+  //     return {
+  //       queryset: trimData,
+  //
+  //       pages: pages,
+  //     };
+  //   };
 
   var clearTable = function () {
     console.log("table cleared");
@@ -220,5 +262,8 @@ var AddressBook = (function () {
     addContact: addContact,
     clearTable: clearTable,
     exportTableToExcel: exportTableToExcel,
+    searchPoint: searchPoint,
+
+    search: search,
   };
 })();
