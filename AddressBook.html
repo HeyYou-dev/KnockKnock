@@ -20,7 +20,7 @@
       <div class="ui stackable grid">
         <div class="ten wide column">
           <div>
-            <div class="ui segment" style="border-radius: 10px; background-color: #383f3d">
+            <div class="ui segment" id="header">
               <div class="ui search">
                 <div class="ui icon input">
                   <input id="search" class="prompt" type="text" placeholder="Enter Quote id..." data-bind="textInput:AddressBook.search.inputBar; valueUpdate: 'keyup'" />
@@ -87,6 +87,7 @@
                 <select id="put" class="field" data-bind="value :AddressBook.contact.Reason">
                   <option value="BUG">BUG</option>
                   <option value="On Bussiness Approval">On Bussiness Approval</option>
+                  <option value="On Validating query">On Validating query</option>
                 </select>
               </div>
 
@@ -98,8 +99,8 @@
               </div>
 
               <div class="field" data-bind="visible:AddressBook.contact.ManualDate() ==true">
-                <label id="lbl">Date</label>
-                <input id="put" type="text" data-bind="value:AddressBook.contact.date" placeholder="Please enter change date..?" />
+                <label id="lbl">Changed on</label>
+                <input id="put" type="text" data-bind="value:AddressBook.contact.date" placeholder="Please enter change date MM/DD/YYYY..?" />
               </div>
 
               <div class="field">

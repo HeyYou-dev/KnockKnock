@@ -9,16 +9,21 @@
   color: rgb(230, 233, 235);
 }
 
+#header {
+  border-radius: 10px;
+  background-color: rebeccapurple;
+}
+
 #loginbox {
   padding: 42px;
-  background-color: rgb(75, 77, 75);
+  background-color: #3c382b;
   border-radius: 5px;
 }
 
 #footer {
   padding: 10px;
   margin-top: 20px;
-  background-color: #333135;
+  background-color: #3c382b;
 }
 #scroll {
   height: 400px;
