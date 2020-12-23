@@ -24,12 +24,28 @@ var AddressBook = (function () {
       },
     }),
     ManualDate: ko.observable(false),
-    date: ko.observable(new Date().toLocaleString()),
+
     Reason: ko.observable("BUG"),
     Change: ko.observable().extend({
       Required: true,
     }),
   };
+
+  contact.date = ko.computed(function () {
+    let d = new Date();
+    // console.log(d.getTime());
+    localTime = d.getTime();
+    localOffset = d.getTimezoneOffset() * 60000;
+
+    utc = localTime + localOffset;
+    // console.log("utc", utc);
+
+    Germaany = utc + 3600000 * 1;
+    nd = new Date(Germaany);
+    console.log("Germaany time is " + nd.toLocaleString() + "<br>");
+
+    return nd.toLocaleString();
+  }, contact);
 
   contact.isFormValid = ko.computed(function () {
     return this.Ticket_no() && this.Quote_id() && this.Reason() && this.Change();
@@ -43,7 +59,7 @@ var AddressBook = (function () {
 
   var search = {
     inputBar: ko.observable("").extend({
-      minLength: 12,
+      minLength: 10,
       maxLength: 12,
       pattern: {
         message: "Hey this doesnt match quote id pattern",
@@ -56,7 +72,7 @@ var AddressBook = (function () {
     let a = search.inputBar();
     console.log(a.length);
 
-    return a.length == 12;
+    return a.length == 12 || a.length == 10;
   };
 
   /*-------------jquery---------------------*/
@@ -74,10 +90,10 @@ var AddressBook = (function () {
   var searchPoint = function () {
     let a = search.inputBar();
 
-    if (a.length == 12) {
+    if (a.length == 12 || a.length == 10) {
       data = getLocal();
       console.log(data);
-      let result = data.filter((row) => row.Quote_id == a);
+      let result = data.filter((row) => row.Quote_id == a || row.Ticket_no == a);
       contacts.removeAll();
       contacts.unshift(result[0]);
     } else {
