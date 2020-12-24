@@ -1,6 +1,16 @@
 /* Module for Address Book application */
 var AddressBook = (function () {
-  /*--------------------*/
+  /*-------unorganized-------------*/
+  let d = new Date();
+  // console.log(d.getTime());
+  localTime = d.getTime();
+  localOffset = d.getTimezoneOffset() * 60000;
+
+  utc = localTime + localOffset;
+  // console.log("utc", utc);
+
+  Germaany = utc + 3600000 * 1;
+  nd = new Date(Germaany);
 
   /*-------knockout validation configuration--------*/
   ko.validation.init({ insertMessages: false });
@@ -31,21 +41,12 @@ var AddressBook = (function () {
     }),
   };
 
-  contact.date = ko.computed(function () {
-    let d = new Date();
-    // console.log(d.getTime());
-    localTime = d.getTime();
-    localOffset = d.getTimezoneOffset() * 60000;
-
-    utc = localTime + localOffset;
-    // console.log("utc", utc);
-
-    Germaany = utc + 3600000 * 1;
-    nd = new Date(Germaany);
-    console.log("Germaany time is " + nd.toLocaleString() + "<br>");
-
-    return nd.toLocaleString();
-  }, contact);
+  contact.ManualDate.subscribe(function (newValue) {
+    if (!newValue) {
+      contact.date(nd.toLocaleString());
+    }
+  }),
+    (contact.date = ko.observable(contact.ManualDate() ? "" : nd.toLocaleString()));
 
   contact.isFormValid = ko.computed(function () {
     return this.Ticket_no() && this.Quote_id() && this.Reason() && this.Change();
@@ -117,7 +118,7 @@ var AddressBook = (function () {
       contacts.unshift(paylaod);
       total(total() + 1);
       setLocalstorage(paylaod);
-      clearContact();
+      // clearContact();
       // visi(false);
     } else {
       console.log("error report");
