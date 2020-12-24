@@ -96,7 +96,9 @@ var AddressBook = (function () {
       console.log(data);
       let result = data.filter((row) => row.Quote_id == a || row.Ticket_no == a);
       contacts.removeAll();
-      contacts.unshift(result[0]);
+      for (row of result) {
+        contacts.unshift(row);
+      }
     } else {
       getCurrentState();
     }
@@ -118,7 +120,7 @@ var AddressBook = (function () {
       contacts.unshift(paylaod);
       total(total() + 1);
       setLocalstorage(paylaod);
-      // clearContact();
+      clearContact();
       // visi(false);
     } else {
       console.log("error report");
@@ -252,7 +254,7 @@ var AddressBook = (function () {
     var wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "People");
 
-    n = contact.date();
+    n = new Date().toLocaleString();
     /* generate an XLSX file */
     XLSX.writeFile(wb, `${n}.xlsx`);
   };
@@ -263,7 +265,7 @@ var AddressBook = (function () {
     /*------------add code to initialize this module------------*/
 
     console.log("first console");
-    document.body.style.zoom = 0.9;
+    document.body.style.zoom = 0.8;
     getCurrentState();
     // visi(false);
     ko.applyBindings(AddressBook);

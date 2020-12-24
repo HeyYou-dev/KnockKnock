@@ -27,7 +27,6 @@
 }
 #scroll {
   height: 400px;
-  overflow-y: scroll;
-  overflow-x: scroll;
+  overflow: auto;
   display: block;
 }
