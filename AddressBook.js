@@ -55,6 +55,7 @@ var AddressBook = (function () {
   contacts = ko.observableArray();
 
   total = ko.observable(null);
+  foundResult = ko.observable(0);
 
   /*--------------Search bar operation----------------*/
 
@@ -81,6 +82,7 @@ var AddressBook = (function () {
   $("#search").keyup(function () {
     if (!this.value) {
       console.log("jquery");
+      foundResult(0);
       contacts.removeAll();
       getCurrentState();
     }
@@ -96,6 +98,8 @@ var AddressBook = (function () {
       console.log(data);
       let result = data.filter((row) => row.Quote_id == a || row.Ticket_no == a);
       contacts.removeAll();
+      foundResult(result.length);
+      console.log(foundResult());
       for (row of result) {
         contacts.unshift(row);
       }
@@ -276,7 +280,7 @@ var AddressBook = (function () {
   $(init);
   return {
     /* ----------add members that will be exposed publicly---- */
-
+    foundResult: foundResult,
     contact: contact,
     contacts: contacts,
     addContact: addContact,

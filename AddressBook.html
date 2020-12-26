@@ -25,8 +25,8 @@
                   <input id="search" class="prompt" type="text" placeholder="Ticket or Quote id......." data-bind="textInput:AddressBook.search.inputBar; valueUpdate: 'keyup'" />
                   <button style="margin-left: 50px; border-radius: 115px" data-bind="enable:AddressBook.search.isValid(),click:AddressBook.searchPoint;" class="ui inverted orange basic button" type="submit">Search</button>
                 </div>
+                <div style="display: inline; color: white; margin-left: 220px; font-size: large" data-bind="if:AddressBook.foundResult">Found <span data-bind="text:AddressBook.foundResult"></span></div>
               </div>
-              <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:AddressBook.search.inputBar"></span>
             </div>
             <div class="ui segment" style="box-shadow: 20px 20px 50px 10px #e3e3e1 inset" id="scroll">
               <table class="ui padded orange celled table" id="table">
@@ -62,7 +62,7 @@
             <form class="ui form">
               <div class="field">
                 <label id="lbl">IM Ticket ID</label>
-                <input id="put" type="text" data-bind="value: AddressBook.contact.Ticket_no, valueUpdate: 'keyup'" placeholder="IM Ticket id.........?" />
+                <input type="text" data-bind="value: AddressBook.contact.Ticket_no, valueUpdate: 'keyup'" placeholder="IM Ticket id.........?" />
                 <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.Ticket_no"></span>
               </div>
 
@@ -73,7 +73,7 @@
               <!-- </div> -->
               <div class="field">
                 <label id="lbl">Quote ID</label>
-                <input id="put" type="text" data-bind="value:AddressBook.contact.Quote_id, valueUpdate: 'keyup'" placeholder="CPQ Quote id.....? " />
+                <input type="text" data-bind="value:AddressBook.contact.Quote_id, valueUpdate: 'keyup'" placeholder="CPQ Quote id.....? " />
                 <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.Quote_id"></span>
               </div>
 
@@ -85,7 +85,7 @@
 
               <div class="field">
                 <label id="lbl">Reason</label>
-                <select id="put" class="field" data-bind="value :AddressBook.contact.Reason">
+                <select class="field" data-bind="value :AddressBook.contact.Reason">
                   <option value="BUG">BUG</option>
                   <option value="On Bussiness Approval">On Bussiness Approval</option>
                   <option value="On Validating query">On Validating query</option>
@@ -94,7 +94,7 @@
 
               <div class="field">
                 <label id="lbl">Change done</label>
-                <input id="put" type="text" data-bind="value:AddressBook.contact.Change, valueUpdate: 'keyup'" placeholder="What change was done....?" />
+                <input type="text" data-bind="value:AddressBook.contact.Change, valueUpdate: 'keyup'" placeholder="What change was done....?" />
                 <span style="color: rgb(202, 60, 60)" data-bind="validationMessage:  AddressBook.contact.Change"></span>
               </div>
               <div class="field">
@@ -106,7 +106,7 @@
 
               <div class="field" data-bind="visible:AddressBook.contact.ManualDate() ==true">
                 <label id="lbl">Changed on</label>
-                <input id="put" type="text" data-bind="value:AddressBook.contact.date" placeholder="Please enter change date MM/DD/YYYY..?" />
+                <input type="text" data-bind="value:AddressBook.contact.date" placeholder="Please enter change date MM/DD/YYYY..?" />
               </div>
 
               <div class="field">
@@ -115,9 +115,9 @@
             </form>
           </div>
 
-          <div class="six wide column">
+          <!-- <div class="six wide column">
             <pre data-bind="text:ko.toJSON($data.contact,null,2)"></pre>
-          </div>
+          </div> -->
         </div>
       </div>
 
